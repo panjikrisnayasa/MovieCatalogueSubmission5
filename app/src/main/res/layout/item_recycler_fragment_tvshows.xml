@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+
+    <ImageView
+        android:id="@+id/image_item_recycler_fragment_tvshows_poster"
+        android:layout_width="84dp"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_image_rounded"
+        android:contentDescription="@string/item_recycler_image_poster"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/text_item_recycler_fragment_tvshows_title"
+        style="@style/TextStyle.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_tvshows_poster"
+        android:textAllCaps="true"
+        tools:text="THE FIX" />
+
+    <LinearLayout
+        android:id="@+id/linear_item_recycler_fragment_tvshows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_item_recycler_fragment_tvshows_title"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_tvshows_poster"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RatingBar
+            android:id="@+id/rating_item_recycler_fragment_tvshows"
+            style="?ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/colorRatingBar"
+            tools:rating="4" />
+
+        <TextView
+            android:id="@+id/text_item_recycler_fragment_tvshows_rating_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/colorRatingBar"
+            tools:text="9.3" />
+
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/table_item_recycler_fragment_tvshows"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_item_recycler_fragment_tvshows"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_tvshows_poster">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_tvshows_text_genre" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_tvshows_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="Action" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_tvshows_text_runtime" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_tvshows_runtime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="30m" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_tvshows_text_network" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_tvshows_network"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="Netflix" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button_item_recycler_fragment_tvshows_details"
+        style="@style/ButtonStyle.Rounded"
+        android:layout_below="@id/table_item_recycler_fragment_tvshows"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/item_recycler_fragment_tvshows_button_see_more" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/button_item_recycler_fragment_tvshows_details"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark" />
+
+</RelativeLayout>

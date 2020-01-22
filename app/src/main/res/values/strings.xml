@@ -1,29 +1,39 @@
 <resources>
 
-    <string name="app_name">Movie Catalogue 2</string>
+    <string name="app_name">Movie Catalogue 3</string>
 
     <!--    Main-->
     <string name="menu_main_change_language">Change Language</string>
 
+    <string name="movie_rating_adult">Adult</string>
+    <string name="movie_rating_all_ages">All Ages</string>
+    <string name="failed_to_retrieve_data">Failed to retrieve data, please check your connection</string>
+
     <!--    Item Recycler Fragment Movies-->
     <string name="item_recycler_fragment_movies_text_genre">Genre</string>
-    <string name="item_recycler_fragment_movies_text_duration">Duration</string>
+    <string name="item_recycler_fragment_movies_text_popularity">Popularity</string>
+    <string name="item_recycler_fragment_movies_text_release_date">Release Date</string>
     <string name="item_recycler_fragment_movies_text_rating">Rating</string>
     <string name="item_recycler_fragment_movies_button_see_more">See More</string>
     <string name="item_recycler_image_poster">Poster</string>
 
     <!--    Item Recycler Fragment TV Shows-->
     <string name="item_recycler_fragment_tvshows_text_genre">Genre</string>
-    <string name="item_recycler_fragment_tvshows_text_network">Network</string>
-    <string name="item_recycler_fragment_tvshows_text_runtime">Runtime</string>
+    <string name="item_recycler_fragment_tvshows_text_language">Language</string>
+    <string name="item_recycler_fragment_tvshows_text_first_air_date">First Air Date</string>
     <string name="item_recycler_fragment_tvshows_button_see_more">See More</string>
+    <string name="item_recycler_fragment_tvshows_text_popularity">Popularity</string>
 
     <!--    Detail Movies TV Shows-->
     <string name="detail_movies_tvshows_button_buy_ticket">Buy Ticket</string>
     <string name="detail_movies_tvshows_button_watch_now">Watch Now</string>
-    <string name="detail_movies_tvshows_text_synopsis">Synopsis</string>
+    <string name="detail_movies_tvshows_text_overview">Overview</string>
     <string name="detail_movies_tvshows_image_poster">Poster</string>
     <string name="detail_movies_tvshows_toast_buy_ticket">You ordered \"%s\" ticket</string>
     <string name="detail_movies_tvshows_toast_watch_now">Enjoy watching :)</string>
+
+    <!--    View Pager Adapter-->
+    <string name="view_pager_adapter_movies">Movies</string>
+    <string name="view_pager_adapter_tv_shows">TV Shows</string>
 
 </resources>

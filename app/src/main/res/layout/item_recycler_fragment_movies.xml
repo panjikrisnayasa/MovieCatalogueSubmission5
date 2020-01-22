@@ -29,7 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/image_item_recycler_fragment_movies_poster"
         android:textAllCaps="true"
-        tools:text="ANGEL HAS FALLEN" />
+        tools:text="AD ASTRA" />
 
     <LinearLayout
         android:id="@+id/linear_item_recycler_fragment_movies"
@@ -48,15 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:progressTint="@color/colorRatingBar"
-            tools:rating="4" />
+            tools:rating="3" />
 
         <TextView
-            android:id="@+id/text_item_recycler_fragment_movies_rating_score"
+            android:id="@+id/text_item_recycler_fragment_movies_vote_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textColor="@color/colorRatingBar"
-            tools:text="9.3" />
+            tools:text="6.0" />
 
     </LinearLayout>
 
@@ -75,15 +75,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/item_recycler_fragment_movies_text_genre" />
+                android:text="@string/item_recycler_fragment_movies_text_popularity" />
 
             <TextView
-                android:id="@+id/text_item_recycler_fragment_movies_genre"
+                android:id="@+id/text_item_recycler_fragment_movies_popularity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textColor="@color/colorAccent"
-                tools:text="Action" />
+                tools:text="1000" />
 
         </TableRow>
 
@@ -93,15 +93,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/item_recycler_fragment_movies_text_duration" />
+                android:text="@string/item_recycler_fragment_movies_text_release_date" />
 
             <TextView
-                android:id="@+id/text_item_recycler_fragment_movies_duration"
+                android:id="@+id/text_item_recycler_fragment_movies_release_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textColor="@color/colorAccent"
-                tools:text="2h 1m" />
+                tools:text="2019-09-17" />
 
         </TableRow>
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:textColor="@color/colorAccent"
-                tools:text="R" />
+                tools:text="All Ages" />
 
         </TableRow>
 

@@ -1,4 +1,4 @@
-package com.panjikrisnayasa.moviecataloguesubmission2
+package com.panjikrisnayasa.moviecataloguesubmission3
 
 import org.junit.Test
 

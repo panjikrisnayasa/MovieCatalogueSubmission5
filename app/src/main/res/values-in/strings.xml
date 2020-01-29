@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Katalog Film 3</string>
+    <string name="app_name">Katalog Film 4</string>
 
     <!--    Main-->
     <string name="menu_main_change_language">Ganti Bahasa</string>
@@ -31,9 +31,13 @@
     <string name="detail_movies_tvshows_image_poster">Poster</string>
     <string name="detail_movies_tvshows_toast_buy_ticket">Anda telah memesan tiket \"%s\"</string>
     <string name="detail_movies_tvshows_toast_watch_now">Selamat menyaksikan :)</string>
+    <string name="menu_detail_movie_tvshow_favorite">Favorit</string>
 
     <!--    View Pager Adapter-->
-    <string name="view_pager_adapter_movies">Film</string>
-    <string name="view_pager_adapter_tv_shows">Acara TV</string>
+    <string name="view_pager_adapter_favorite_movies">Film</string>
+    <string name="view_pager_adapter_favorite_tv_shows">Acara TV</string>
+    <string name="menu_main_bottom_navigation_movies">Film</string>
+    <string name="menu_main_bottom_navigation_tv_shows">Acara TV</string>
+    <string name="menu_main_bottom_navigation_favorite">Favorit</string>
 
 </resources>

@@ -38,4 +38,9 @@
         <item name="android:textColor">@color/colorRatingBar</item>
     </style>
 
+    <style name="BottomNavigationViewTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorUnpressedItem</item>
+    </style>
+
 </resources>

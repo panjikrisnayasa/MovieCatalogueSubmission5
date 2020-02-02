@@ -8,42 +8,54 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.panjikrisnayasa.moviecataloguesubmission4.R
 import com.panjikrisnayasa.moviecataloguesubmission4.model.TVShow
-import com.panjikrisnayasa.moviecataloguesubmission4.view.DetailMovieTVShowActivity
+import com.panjikrisnayasa.moviecataloguesubmission4.view.DetailFavoredMovieTVShowActivity
+import com.panjikrisnayasa.moviecataloguesubmission4.view.FavoriteTVShowsFragment
 import kotlinx.android.synthetic.main.item_recycler_fragment_tvshows.view.*
 
-class TVShowsAdapter :
-    RecyclerView.Adapter<TVShowsAdapter.TVShowsViewHolder>() {
+class FavoredTVShowsAdapter(private val fragment: FavoriteTVShowsFragment) :
+    RecyclerView.Adapter<FavoredTVShowsAdapter.FavoredTVShowsHolder>() {
 
-    private var mData = ArrayList<TVShow>()
+    var listTVShows = ArrayList<TVShow>()
+        set(listTVShows) {
+            if (listTVShows.size > 0) {
+                this.listTVShows.clear()
+            }
+            this.listTVShows.addAll(listTVShows)
+            notifyDataSetChanged()
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TVShowsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoredTVShowsHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler_fragment_tvshows, parent, false)
-        return TVShowsViewHolder(view)
+        return FavoredTVShowsHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return mData.size
+        return this.listTVShows.size
     }
 
-    override fun onBindViewHolder(holder: TVShowsViewHolder, position: Int) {
-        holder.bind(mData[position])
+    override fun onBindViewHolder(holder: FavoredTVShowsHolder, position: Int) {
+        holder.bind(listTVShows[position])
     }
 
-    fun setData(tvShows: ArrayList<TVShow>) {
-        mData.clear()
-        mData.addAll(tvShows)
-        notifyDataSetChanged()
+    fun removeItem(position: Int) {
+        this.listTVShows.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, this.listTVShows.size)
     }
 
-    private fun moveToDetail(view: View, tvShowID: String?) {
+    private fun moveToDetail(position: Int, tvShow: TVShow) {
         val detailIntent =
-            Intent(view.context, DetailMovieTVShowActivity::class.java)
-        detailIntent.putExtra(DetailMovieTVShowActivity.EXTRA_TVSHOW_ID, tvShowID)
-        view.context.startActivity(detailIntent)
+            Intent(fragment.context, DetailFavoredMovieTVShowActivity::class.java)
+        detailIntent.putExtra(DetailFavoredMovieTVShowActivity.EXTRA_TVSHOW, tvShow)
+        detailIntent.putExtra(DetailFavoredMovieTVShowActivity.EXTRA_POSITION, position)
+        fragment.startActivityForResult(
+            detailIntent,
+            DetailFavoredMovieTVShowActivity.REQUEST_UPDATE
+        )
     }
 
-    inner class TVShowsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class FavoredTVShowsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TVShow) {
             with(itemView) {
                 image_item_recycler_fragment_tvshows_poster.clipToOutline = true
@@ -62,12 +74,13 @@ class TVShowsAdapter :
                 text_item_recycler_fragment_tvshows_language.text = tvShow.language
 
                 button_item_recycler_fragment_tvshows_details.setOnClickListener {
-                    moveToDetail(it, tvShow.id)
+                    moveToDetail(adapterPosition, tvShow)
                 }
                 itemView.setOnClickListener {
-                    moveToDetail(it, tvShow.id)
+                    moveToDetail(adapterPosition, tvShow)
                 }
             }
         }
     }
+
 }

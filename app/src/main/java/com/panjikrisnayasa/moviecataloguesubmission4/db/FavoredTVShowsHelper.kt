@@ -5,38 +5,36 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.panjikrisnayasa.moviecataloguesubmission4.db.DatabaseFavoredMoviesContract.FavoredMoviesColumns.Companion.TABLE_NAME
-import com.panjikrisnayasa.moviecataloguesubmission4.db.DatabaseFavoredMoviesContract.FavoredMoviesColumns.Companion.TITLE
-import com.panjikrisnayasa.moviecataloguesubmission4.db.DatabaseFavoredMoviesContract.FavoredMoviesColumns.Companion._ID
 import java.sql.SQLException
 
-class FavoredMoviesHelper(context: Context) {
-    private val mDatabaseFavoredMoviesHelper = DatabaseFavoredMoviesHelper(context)
+class FavoredTVShowsHelper(context: Context) {
+    private val mDatabaseFavoredTVShowsHelper = DatabaseFavoredTVShowsHelper(context)
     private lateinit var mDatabase: SQLiteDatabase
 
     companion object {
-        private const val DATABASE_TABLE = TABLE_NAME
-        private var INSTANCE: FavoredMoviesHelper? = null
+        private const val DATABASE_TABLE =
+            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.TABLE_NAME
+        private var INSTANCE: FavoredTVShowsHelper? = null
 
-        fun getInstance(context: Context): FavoredMoviesHelper {
+        fun getInstance(context: Context): FavoredTVShowsHelper {
             if (INSTANCE == null) {
                 synchronized(SQLiteOpenHelper::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = FavoredMoviesHelper(context)
+                        INSTANCE = FavoredTVShowsHelper(context)
                     }
                 }
             }
-            return INSTANCE as FavoredMoviesHelper
+            return INSTANCE as FavoredTVShowsHelper
         }
     }
 
     @Throws(SQLException::class)
     fun open() {
-        mDatabase = mDatabaseFavoredMoviesHelper.writableDatabase
+        mDatabase = mDatabaseFavoredTVShowsHelper.writableDatabase
     }
 
     fun close() {
-        mDatabaseFavoredMoviesHelper.close()
+        mDatabaseFavoredTVShowsHelper.close()
 
         if (mDatabase.isOpen) {
             mDatabase.close()
@@ -51,16 +49,16 @@ class FavoredMoviesHelper(context: Context) {
             null,
             null,
             null,
-            "$_ID ASC"
+            "${DatabaseFavoredTVShowsContract.FavoredTVShowsColumns._ID} ASC"
         )
     }
 
-    fun queryByTitle(title: String): Cursor {
+    fun queryByName(name: String): Cursor {
         return mDatabase.query(
             DATABASE_TABLE,
             null,
-            "$TITLE = ?",
-            arrayOf(title),
+            "${DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.NAME} = ?",
+            arrayOf(name),
             null,
             null,
             null,
@@ -73,10 +71,19 @@ class FavoredMoviesHelper(context: Context) {
     }
 
     fun update(id: String, values: ContentValues?): Int {
-        return mDatabase.update(DATABASE_TABLE, values, "$_ID = ?", arrayOf(id))
+        return mDatabase.update(
+            DATABASE_TABLE,
+            values,
+            "${DatabaseFavoredTVShowsContract.FavoredTVShowsColumns._ID} = ?",
+            arrayOf(id)
+        )
     }
 
     fun deleteById(id: String): Int {
-        return mDatabase.delete(DATABASE_TABLE, "$_ID = '$id'", null)
+        return mDatabase.delete(
+            DATABASE_TABLE,
+            "${DatabaseFavoredTVShowsContract.FavoredTVShowsColumns._ID} = '$id'",
+            null
+        )
     }
 }

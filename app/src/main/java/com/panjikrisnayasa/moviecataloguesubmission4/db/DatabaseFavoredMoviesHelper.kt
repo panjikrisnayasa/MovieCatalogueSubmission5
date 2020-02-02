@@ -12,7 +12,6 @@ internal class DatabaseFavoredMoviesHelper(context: Context) :
         private const val DATABASE_VERSION = 1
         private const val SQL_CREATE_TABLE = "CREATE TABLE $TABLE_NAME " +
                 "(${DatabaseFavoredMoviesContract.FavoredMoviesColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "${DatabaseFavoredMoviesContract.FavoredMoviesColumns.MOVIE_ID} TEXT NOT NULL, " +
                 "${DatabaseFavoredMoviesContract.FavoredMoviesColumns.POSTER_PATH} TEXT NOT NULL, " +
                 "${DatabaseFavoredMoviesContract.FavoredMoviesColumns.TITLE} TEXT NOT NULL, " +
                 "${DatabaseFavoredMoviesContract.FavoredMoviesColumns.GENRE} TEXT NOT NULL, " +

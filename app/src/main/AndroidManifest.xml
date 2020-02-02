@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.DetailFavoredMovieTVShowActivity" />
         <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.DetailMovieTVShowActivity" />
         <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.MainActivity">
             <intent-filter>

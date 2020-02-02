@@ -8,43 +8,54 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.panjikrisnayasa.moviecataloguesubmission4.R
 import com.panjikrisnayasa.moviecataloguesubmission4.model.Movie
-import com.panjikrisnayasa.moviecataloguesubmission4.view.DetailMovieTVShowActivity
+import com.panjikrisnayasa.moviecataloguesubmission4.view.DetailFavoredMovieTVShowActivity
+import com.panjikrisnayasa.moviecataloguesubmission4.view.FavoriteMoviesFragment
 import kotlinx.android.synthetic.main.item_recycler_fragment_movies.view.*
 
-class MoviesAdapter :
-    RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class FavoredMoviesAdapter(private val fragment: FavoriteMoviesFragment) :
+    RecyclerView.Adapter<FavoredMoviesAdapter.FavoredMoviesHolder>() {
 
-    private var mData = ArrayList<Movie>()
+    var listMovies = ArrayList<Movie>()
+        set(listMovies) {
+            if (listMovies.size > 0) {
+                this.listMovies.clear()
+            }
+            this.listMovies.addAll(listMovies)
+            notifyDataSetChanged()
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoredMoviesHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler_fragment_movies, parent, false)
-        return MoviesViewHolder(view)
+        return FavoredMoviesHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return mData.size
+        return this.listMovies.size
     }
 
-    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.bind(mData[position])
+    override fun onBindViewHolder(holder: FavoredMoviesHolder, position: Int) {
+        holder.bind(listMovies[position])
     }
 
-    fun setData(movies: ArrayList<Movie>) {
-        mData.clear()
-        mData.addAll(movies)
-        notifyDataSetChanged()
+    fun removeItem(position: Int) {
+        this.listMovies.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, this.listMovies.size)
     }
 
-    private fun moveToDetail(view: View, movieID: String?) {
-        val viewContext = view.context
+    private fun moveToDetail(position: Int, movie: Movie) {
         val detailIntent =
-            Intent(viewContext, DetailMovieTVShowActivity::class.java)
-        detailIntent.putExtra(DetailMovieTVShowActivity.EXTRA_MOVIE_ID, movieID)
-        viewContext.startActivity(detailIntent)
+            Intent(fragment.context, DetailFavoredMovieTVShowActivity::class.java)
+        detailIntent.putExtra(DetailFavoredMovieTVShowActivity.EXTRA_MOVIE, movie)
+        detailIntent.putExtra(DetailFavoredMovieTVShowActivity.EXTRA_POSITION, position)
+        fragment.startActivityForResult(
+            detailIntent,
+            DetailFavoredMovieTVShowActivity.REQUEST_UPDATE
+        )
     }
 
-    inner class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class FavoredMoviesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
             with(itemView) {
                 image_item_recycler_fragment_movies_poster.clipToOutline = true
@@ -69,10 +80,10 @@ class MoviesAdapter :
                 }
 
                 button_item_recycler_fragment_movies_details.setOnClickListener {
-                    moveToDetail(it, movie.id)
+                    moveToDetail(adapterPosition, movie)
                 }
                 itemView.setOnClickListener {
-                    moveToDetail(it, movie.id)
+                    moveToDetail(adapterPosition, movie)
                 }
             }
         }

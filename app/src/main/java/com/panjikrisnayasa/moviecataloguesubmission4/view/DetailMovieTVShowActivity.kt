@@ -1,5 +1,6 @@
 package com.panjikrisnayasa.moviecataloguesubmission4.view
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,19 +10,39 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.panjikrisnayasa.moviecataloguesubmission4.R
+import com.panjikrisnayasa.moviecataloguesubmission4.db.DatabaseFavoredMoviesContract
+import com.panjikrisnayasa.moviecataloguesubmission4.db.DatabaseFavoredTVShowsContract
+import com.panjikrisnayasa.moviecataloguesubmission4.db.FavoredMoviesHelper
+import com.panjikrisnayasa.moviecataloguesubmission4.db.FavoredTVShowsHelper
+import com.panjikrisnayasa.moviecataloguesubmission4.helper.MappingHelper
+import com.panjikrisnayasa.moviecataloguesubmission4.model.Movie
+import com.panjikrisnayasa.moviecataloguesubmission4.model.TVShow
 import com.panjikrisnayasa.moviecataloguesubmission4.viewmodel.DetailMovieTVShowViewModel
 import kotlinx.android.synthetic.main.activity_detail_movie_tvshow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailMovieTVShowActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_MOVIES = "extra_movies"
-        const val EXTRA_TVSHOWS = "extra_tvshows"
+        const val EXTRA_MOVIE_ID = "extra_movie_id"
+        const val EXTRA_TVSHOW_ID = "extra_tvshow_id"
     }
 
     private lateinit var mDetailMovieTVShowViewModel: DetailMovieTVShowViewModel
+    private lateinit var mFavoredMoviesHelper: FavoredMoviesHelper
+    private lateinit var mFavoredTVShowsHelper: FavoredTVShowsHelper
+    private lateinit var mMenu: Menu
     private var mIsMovieTVShowFavored = false
+    private var mIsSavedInDb = false
+    private var mDetailMovie: Movie? = null
+    private var mDetailTVShow: TVShow? = null
+    private var mSavedMovieList = ArrayList<Movie>()
+    private var mSavedTVShowList = ArrayList<TVShow>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +52,14 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
 
         image_detail_movies_tvshows_poster.clipToOutline = true
 
-        val detailMovie = intent.getStringExtra(EXTRA_MOVIES)
-        val detailTVShow = intent.getStringExtra(EXTRA_TVSHOWS)
+        mFavoredMoviesHelper = FavoredMoviesHelper.getInstance(applicationContext)
+        mFavoredMoviesHelper.open()
+
+        mFavoredTVShowsHelper = FavoredTVShowsHelper.getInstance(applicationContext)
+        mFavoredTVShowsHelper.open()
+
+        val detailMovie = intent.getStringExtra(EXTRA_MOVIE_ID)
+        val detailTVShow = intent.getStringExtra(EXTRA_TVSHOW_ID)
 
         mDetailMovieTVShowViewModel =
             ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
@@ -45,6 +72,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
             mDetailMovieTVShowViewModel.getMovie()
                 .observe(this, androidx.lifecycle.Observer { movie ->
                     if (movie != null) {
+
+                        mDetailMovie = movie
+
+                        checkMovie(movie.title!!, mMenu)
+
                         showLoading(false)
 
                         text_detail_movies_tvshows_genre_label.text =
@@ -100,6 +132,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
             mDetailMovieTVShowViewModel.getTVShow()
                 .observe(this, androidx.lifecycle.Observer { tvShow ->
                     if (tvShow != null) {
+
+                        mDetailTVShow = tvShow
+
+                        checkTVShow(tvShow.name!!, mMenu)
+
                         showLoading(false)
 
                         text_detail_movies_tvshows_genre_label.text =
@@ -145,8 +182,15 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mFavoredMoviesHelper.close()
+        mFavoredTVShowsHelper.close()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail_movie_tvshow, menu)
+        if (menu != null) mMenu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -155,25 +199,143 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.menu_detail_movie_tvshow_favorite -> {
                 if (mIsMovieTVShowFavored) {
-                    mIsMovieTVShowFavored = false
-                    Toast.makeText(
-                        this,
-                        "Movie or TV Show is favored $mIsMovieTVShowFavored",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    if (mDetailMovie != null) {
+                        mIsMovieTVShowFavored = false
+
+                        if (mIsSavedInDb) {
+                            mFavoredMoviesHelper.deleteById(mSavedMovieList[0].id.toString())
+                        } else {
+                            mFavoredMoviesHelper.deleteById(mDetailMovie?.id.toString())
+                        }
+
+                    } else if (mDetailTVShow != null) {
+                        mIsMovieTVShowFavored = false
+
+                        if (mIsSavedInDb) {
+                            mFavoredTVShowsHelper.deleteById(mSavedTVShowList[0].id.toString())
+                        } else {
+                            mFavoredTVShowsHelper.deleteById(mDetailTVShow?.id.toString())
+                        }
+
+                    }
                     item.setIcon(R.drawable.ic_favorite_border_grey_24dp)
+
                 } else {
+
                     mIsMovieTVShowFavored = true
-                    Toast.makeText(
-                        this,
-                        "Movie or TV Show is favored $mIsMovieTVShowFavored",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val values = ContentValues()
+
+                    if (mDetailMovie != null) {
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.POSTER_PATH,
+                            mDetailMovie?.posterPath
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.TITLE,
+                            mDetailMovie?.title
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.GENRE,
+                            mDetailMovie?.genre
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.POPULARITY,
+                            mDetailMovie?.popularity
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.RELEASE_DATE,
+                            mDetailMovie?.releaseDate
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.RATING,
+                            mDetailMovie?.forAdult.toString()
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.VOTE_AVERAGE,
+                            mDetailMovie?.voteAverage
+                        )
+                        values.put(
+                            DatabaseFavoredMoviesContract.FavoredMoviesColumns.OVERVIEW,
+                            mDetailMovie?.overview
+                        )
+                        val result = mFavoredMoviesHelper.insert(values)
+                        mDetailMovie?.id = result.toString()
+                    } else if (mDetailTVShow != null) {
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.POSTER_PATH,
+                            mDetailTVShow?.posterPath
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.NAME,
+                            mDetailTVShow?.name
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.GENRE,
+                            mDetailTVShow?.genre
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.POPULARITY,
+                            mDetailTVShow?.popularity
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.FIRST_AIR_DATE,
+                            mDetailTVShow?.firstAirDate
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.LANGUAGE,
+                            mDetailTVShow?.language
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.VOTE_AVERAGE,
+                            mDetailTVShow?.voteAverage
+                        )
+                        values.put(
+                            DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.OVERVIEW,
+                            mDetailTVShow?.overview
+                        )
+                        val result = mFavoredTVShowsHelper.insert(values)
+                        mDetailTVShow?.id = result.toString()
+                    }
                     item.setIcon(R.drawable.ic_favorite_grey_24dp)
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun checkMovie(title: String, menu: Menu?) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val deferredNotes = async(Dispatchers.IO) {
+                val cursor = mFavoredMoviesHelper.queryByTitle(title)
+                MappingHelper.mapFavoredMovieCursorToArrayList(cursor)
+            }
+            val movies = deferredNotes.await()
+            if (movies.size > 0) {
+                val menuItem = menu?.findItem(R.id.menu_detail_movie_tvshow_favorite)
+                menuItem?.setIcon(R.drawable.ic_favorite_grey_24dp)
+                mIsMovieTVShowFavored = true
+                mIsSavedInDb = true
+                mSavedMovieList = movies
+            }
+        }
+    }
+
+    private fun checkTVShow(name: String, menu: Menu?) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val deferredNotes = async(Dispatchers.IO) {
+                val cursor = mFavoredTVShowsHelper.queryByName(name)
+                MappingHelper.mapFavoredTVShowCursorToArrayList(cursor)
+            }
+            val tvShow = deferredNotes.await()
+            if (tvShow.size > 0) {
+                val menuItem = menu?.findItem(R.id.menu_detail_movie_tvshow_favorite)
+                menuItem?.setIcon(R.drawable.ic_favorite_grey_24dp)
+                mIsMovieTVShowFavored = true
+                mIsSavedInDb = true
+                mSavedTVShowList = tvShow
+            }
+        }
     }
 
     private fun showLoading(state: Boolean) {

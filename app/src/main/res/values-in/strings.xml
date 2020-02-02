@@ -8,6 +8,8 @@
     <string name="movie_rating_adult">Dewasa</string>
     <string name="movie_rating_all_ages">Semua Umur</string>
     <string name="failed_to_retrieve_data">Gagal mengambil data, tolong periksa koneksi anda</string>
+    <string name="no_favored_movies">Belum ada film favoritmu</string>
+    <string name="no_favored_tvshow">Belum ada tv show favoritmu</string>
 
     <!--    Item Recycler Fragment Movies-->
     <string name="item_recycler_fragment_movies_text_genre">Aliran</string>
@@ -30,7 +32,7 @@
     <string name="detail_movies_tvshows_text_overview">Gambaran Cerita</string>
     <string name="detail_movies_tvshows_image_poster">Poster</string>
     <string name="detail_movies_tvshows_toast_buy_ticket">Anda telah memesan tiket \"%s\"</string>
-    <string name="detail_movies_tvshows_toast_watch_now">Selamat menyaksikan :)</string>
+    <string name="detail_movies_tvshows_toast_watch_now">Selamat menyaksikan</string>
     <string name="menu_detail_movie_tvshow_favorite">Favorit</string>
 
     <!--    View Pager Adapter-->

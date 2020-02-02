@@ -8,6 +8,8 @@
     <string name="movie_rating_adult">Adult</string>
     <string name="movie_rating_all_ages">All Ages</string>
     <string name="failed_to_retrieve_data">Failed to retrieve data, please check your connection</string>
+    <string name="no_favored_movies">There are no movies you favored yet</string>
+    <string name="no_favored_tvshow">There are no tv shows you favored yet</string>
 
     <!--    Item Recycler Fragment Movies-->
     <string name="item_recycler_fragment_movies_text_genre">Genre</string>
@@ -30,7 +32,7 @@
     <string name="detail_movies_tvshows_text_overview">Overview</string>
     <string name="detail_movies_tvshows_image_poster">Poster</string>
     <string name="detail_movies_tvshows_toast_buy_ticket">You ordered \"%s\" ticket</string>
-    <string name="detail_movies_tvshows_toast_watch_now">Enjoy watching :)</string>
+    <string name="detail_movies_tvshows_toast_watch_now">Enjoy watching</string>
     <string name="menu_detail_movie_tvshow_favorite">Favorite</string>
 
     <!--    View Pager Adapter-->

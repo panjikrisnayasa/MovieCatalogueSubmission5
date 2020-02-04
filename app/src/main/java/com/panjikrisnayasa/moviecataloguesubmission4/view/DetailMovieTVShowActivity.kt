@@ -2,6 +2,7 @@ package com.panjikrisnayasa.moviecataloguesubmission4.view
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,12 +32,13 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MOVIE_ID = "extra_movie_id"
         const val EXTRA_TVSHOW_ID = "extra_tvshow_id"
+        private const val EXTRA_STATE = "extra_state"
     }
 
     private lateinit var mDetailMovieTVShowViewModel: DetailMovieTVShowViewModel
     private lateinit var mFavoredMoviesHelper: FavoredMoviesHelper
     private lateinit var mFavoredTVShowsHelper: FavoredTVShowsHelper
-    private lateinit var mMenu: Menu
+    private var mMenu: Menu? = null
     private var mIsMovieTVShowFavored = false
     private var mIsSavedInDb = false
     private var mDetailMovie: Movie? = null
@@ -47,6 +49,18 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie_tvshow)
+
+        if (savedInstanceState != null) {
+            val isMovieTVShowFavored = savedInstanceState.getBoolean(EXTRA_STATE)
+            mIsMovieTVShowFavored = isMovieTVShowFavored
+            val menuItem = mMenu?.findItem(R.id.menu_detail_movie_tvshow_favorite)
+
+            if (mIsMovieTVShowFavored) {
+                menuItem?.setIcon(R.drawable.ic_favorite_grey_24dp)
+            } else {
+                menuItem?.setIcon(R.drawable.ic_favorite_border_grey_24dp)
+            }
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -186,6 +200,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
         super.onDestroy()
         mFavoredMoviesHelper.close()
         mFavoredTVShowsHelper.close()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState?.putBoolean(EXTRA_STATE, mIsMovieTVShowFavored)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

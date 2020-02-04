@@ -13,18 +13,26 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        private const val EXTRA_STATE = "extra_state"
+    }
+
+    private var mFragmentId = 0
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_main_bottom_navigation_movies -> {
+                    mFragmentId = 0
                     replaceFragment(MoviesFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_main_bottom_navigation_tv_shows -> {
+                    mFragmentId = 1
                     replaceFragment(TVShowsFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_main_bottom_navigation_favorite -> {
+                    mFragmentId = 2
                     replaceFragment(FavoriteFragment())
                     return@OnNavigationItemSelectedListener true
                 }
@@ -36,10 +44,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        replaceFragment(MoviesFragment())
+        if (savedInstanceState != null) {
+            when (savedInstanceState.getInt(EXTRA_STATE)) {
+                0 -> {
+                    mFragmentId = 0
+                    replaceFragment(MoviesFragment())
+                }
+                1 -> {
+                    mFragmentId = 1
+                    replaceFragment(TVShowsFragment())
+                }
+                2 -> {
+                    mFragmentId = 2
+                    replaceFragment(FavoriteFragment())
+                }
+            }
+        } else {
+            mFragmentId = 0
+            replaceFragment(MoviesFragment())
+        }
+
         bottom_navigation_view_main.setOnNavigationItemSelectedListener(
             mOnNavigationItemSelectedListener
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(EXTRA_STATE, mFragmentId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

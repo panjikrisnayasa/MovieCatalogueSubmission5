@@ -28,6 +28,7 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
         const val REQUEST_UPDATE = 100
         const val RESULT_ADD = 201
         const val RESULT_DELETE = 301
+        private const val EXTRA_STATE = "extra_state"
     }
 
     private lateinit var mFavoredMoviesHelper: FavoredMoviesHelper
@@ -36,10 +37,16 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
     private var mPosition: Int = 0
     private var mDetailMovie: Movie? = null
     private var mDetailTVShow: TVShow? = null
+    private var mMenu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie_tvshow)
+
+        if (savedInstanceState != null) {
+            val isMovieTVShowFavored = savedInstanceState.getBoolean(EXTRA_STATE)
+            mIsMovieTVShowFavored = isMovieTVShowFavored
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -164,14 +171,28 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
         mFavoredTVShowsHelper.close()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(EXTRA_STATE, mIsMovieTVShowFavored)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail_movie_tvshow, menu)
+        if (menu != null) mMenu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favoriteMenu = menu?.findItem(R.id.menu_detail_movie_tvshow_favorite)
-        favoriteMenu?.setIcon(R.drawable.ic_favorite_grey_24dp)
+        if (mIsMovieTVShowFavored) {
+            favoriteMenu?.setIcon(R.drawable.ic_favorite_grey_24dp)
+        } else {
+            favoriteMenu?.setIcon(R.drawable.ic_favorite_border_grey_24dp)
+
+            val intent = Intent()
+            intent.putExtra(EXTRA_POSITION, mPosition)
+            setResult(RESULT_DELETE, intent)
+        }
         return super.onPrepareOptionsMenu(menu)
     }
 

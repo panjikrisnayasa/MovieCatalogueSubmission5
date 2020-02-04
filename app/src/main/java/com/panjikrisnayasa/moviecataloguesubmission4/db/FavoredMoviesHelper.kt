@@ -72,10 +72,6 @@ class FavoredMoviesHelper(context: Context) {
         return mDatabase.insert(DATABASE_TABLE, null, values)
     }
 
-    fun update(id: String, values: ContentValues?): Int {
-        return mDatabase.update(DATABASE_TABLE, values, "$_ID = ?", arrayOf(id))
-    }
-
     fun deleteById(id: String): Int {
         return mDatabase.delete(DATABASE_TABLE, "$_ID = '$id'", null)
     }

@@ -26,6 +26,7 @@ class FavoriteMoviesFragment : Fragment() {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
+        private const val EXTRA_TEXT = "extra_text"
     }
 
     private lateinit var mFavoriteMoviesAdapter: FavoredMoviesAdapter
@@ -50,8 +51,13 @@ class FavoriteMoviesFragment : Fragment() {
         if (savedInstanceState == null) {
             loadFavoredMoviesAsync()
         } else {
+            val text = savedInstanceState.getString(EXTRA_TEXT)
+            text_fragment_favorite_movies.text = text
             val list = savedInstanceState.getParcelableArrayList<Movie>(EXTRA_STATE)
             if (list != null) mFavoriteMoviesAdapter.listMovies = list
+            if (mFavoriteMoviesAdapter.listMovies.isEmpty()) {
+                text_fragment_favorite_movies.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -76,6 +82,7 @@ class FavoriteMoviesFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putString(EXTRA_TEXT, text_fragment_favorite_movies.text.toString())
         outState.putParcelableArrayList(EXTRA_STATE, mFavoriteMoviesAdapter.listMovies)
     }
 

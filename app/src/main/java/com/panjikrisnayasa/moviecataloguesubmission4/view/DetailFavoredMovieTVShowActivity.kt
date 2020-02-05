@@ -211,11 +211,15 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
 
                         mFavoredMoviesHelper.deleteById(mDetailMovie?.id.toString())
 
+                        Toast.makeText(this, getString(R.string.toast_movie_unfavored), Toast.LENGTH_SHORT).show()
+
                     } else if (mDetailTVShow != null) {
                         intent.putExtra(EXTRA_TVSHOW, mDetailTVShow)
                         mIsMovieTVShowFavored = false
 
                         mFavoredTVShowsHelper.deleteById(mDetailTVShow?.id.toString())
+
+                        Toast.makeText(this, getString(R.string.toast_tvshow_unfavored), Toast.LENGTH_SHORT).show()
                     }
                     item.setIcon(R.drawable.ic_favorite_border_grey_24dp)
                     setResult(RESULT_DELETE, intent)
@@ -259,6 +263,9 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
                         )
                         val result = mFavoredMoviesHelper.insert(values)
                         mDetailMovie?.id = result.toString()
+
+                        Toast.makeText(this, getString(R.string.toast_movie_favored), Toast.LENGTH_SHORT).show()
+
                     } else if (mDetailTVShow != null) {
                         values.put(
                             DatabaseFavoredTVShowsContract.FavoredTVShowsColumns.POSTER_PATH,
@@ -294,6 +301,8 @@ class DetailFavoredMovieTVShowActivity : AppCompatActivity() {
                         )
                         val result = mFavoredTVShowsHelper.insert(values)
                         mDetailTVShow?.id = result.toString()
+
+                        Toast.makeText(this, getString(R.string.toast_tvshow_favored), Toast.LENGTH_SHORT).show()
                     }
                     item.setIcon(R.drawable.ic_favorite_grey_24dp)
                     setResult(RESULT_ADD, intent)

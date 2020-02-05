@@ -26,6 +26,7 @@ class FavoriteTVShowsFragment : Fragment() {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
+        private const val EXTRA_TEXT = "extra_text"
     }
 
     private lateinit var mFavoriteTVShowsAdapter: FavoredTVShowsAdapter
@@ -50,8 +51,13 @@ class FavoriteTVShowsFragment : Fragment() {
         if (savedInstanceState == null) {
             loadFavoredMoviesAsync()
         } else {
+            val text = savedInstanceState.getString(EXTRA_TEXT)
+            text_fragment_favorite_tvshow.text = text
             val list = savedInstanceState.getParcelableArrayList<TVShow>(EXTRA_STATE)
             if (list != null) mFavoriteTVShowsAdapter.listTVShows = list
+            if (mFavoriteTVShowsAdapter.listTVShows.isEmpty()) {
+                text_fragment_favorite_tvshow.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -76,6 +82,7 @@ class FavoriteTVShowsFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putString(EXTRA_TEXT, text_fragment_favorite_tvshow.text.toString())
         outState.putParcelableArrayList(EXTRA_STATE, mFavoriteTVShowsAdapter.listTVShows)
     }
 

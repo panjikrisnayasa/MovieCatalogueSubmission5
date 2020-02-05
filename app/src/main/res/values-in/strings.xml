@@ -42,4 +42,10 @@
     <string name="menu_main_bottom_navigation_tv_shows">Acara TV</string>
     <string name="menu_main_bottom_navigation_favorite">Favorit</string>
 
+    <!--    Toast-->
+    <string name="toast_movie_unfavored">Film ini DIHAPUS dari daftar favorit Anda</string>
+    <string name="toast_tvshow_unfavored">Acara TV ini DIHAPUS dari daftar favorit Anda</string>
+    <string name="toast_movie_favored">Film ini DITAMBAHKAN ke daftar favorit Anda</string>
+    <string name="toast_tvshow_favored">Acara TV ini DITAMBAHKAN ke daftar favorit Anda</string>
+
 </resources>

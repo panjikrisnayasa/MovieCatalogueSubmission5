@@ -42,4 +42,10 @@
     <string name="menu_main_bottom_navigation_tv_shows">TV Shows</string>
     <string name="menu_main_bottom_navigation_favorite">Favorite</string>
 
+    <!--    Toast-->
+    <string name="toast_movie_unfavored">This movie DELETED from your favored list</string>
+    <string name="toast_tvshow_unfavored">This TV show DELETED from your favored list</string>
+    <string name="toast_movie_favored">This movie ADDED to your favored list</string>
+    <string name="toast_tvshow_favored">This TV show ADDED to your favored list</string>
+
 </resources>

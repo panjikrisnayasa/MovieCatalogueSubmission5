@@ -2,7 +2,6 @@ package com.panjikrisnayasa.moviecataloguesubmission4.view
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -202,9 +201,9 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
         mFavoredTVShowsHelper.close()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState?.putBoolean(EXTRA_STATE, mIsMovieTVShowFavored)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(EXTRA_STATE, mIsMovieTVShowFavored)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -213,8 +212,8 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> finish()
             R.id.menu_detail_movie_tvshow_favorite -> {
                 if (mIsMovieTVShowFavored) {
@@ -228,7 +227,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
                             mFavoredMoviesHelper.deleteById(mDetailMovie?.id.toString())
                         }
 
-                            Toast.makeText(this, getString(R.string.toast_movie_unfavored), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.toast_movie_unfavored),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     } else if (mDetailTVShow != null) {
                         mIsMovieTVShowFavored = false
@@ -239,7 +242,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
                             mFavoredTVShowsHelper.deleteById(mDetailTVShow?.id.toString())
                         }
 
-                        Toast.makeText(this, getString(R.string.toast_tvshow_unfavored), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.toast_tvshow_unfavored),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     item.setIcon(R.drawable.ic_favorite_border_grey_24dp)
 
@@ -284,7 +291,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
                         val result = mFavoredMoviesHelper.insert(values)
                         mDetailMovie?.id = result.toString()
 
-                        Toast.makeText(this, getString(R.string.toast_movie_favored), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.toast_movie_favored),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     } else if (mDetailTVShow != null) {
                         values.put(
@@ -322,7 +333,11 @@ class DetailMovieTVShowActivity : AppCompatActivity() {
                         val result = mFavoredTVShowsHelper.insert(values)
                         mDetailTVShow?.id = result.toString()
 
-                        Toast.makeText(this, getString(R.string.toast_tvshow_favored), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.toast_tvshow_favored),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     item.setIcon(R.drawable.ic_favorite_grey_24dp)
                 }

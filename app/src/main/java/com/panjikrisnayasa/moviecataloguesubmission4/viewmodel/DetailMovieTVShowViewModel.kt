@@ -1,12 +1,14 @@
 package com.panjikrisnayasa.moviecataloguesubmission4.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.panjikrisnayasa.moviecataloguesubmission4.BuildConfig
 import com.panjikrisnayasa.moviecataloguesubmission4.R
 import com.panjikrisnayasa.moviecataloguesubmission4.model.Movie
 import com.panjikrisnayasa.moviecataloguesubmission4.model.TVShow
@@ -15,7 +17,11 @@ import org.json.JSONObject
 
 class DetailMovieTVShowViewModel : ViewModel() {
     companion object {
-        private const val API_KEY = "cf6b5328dcc68b107a713f503eb6e1d1"
+        private const val BASE_URL_MOVIE = "https://api.themoviedb.org/3/movie/"
+        private const val BASE_URL_TV_SHOW = "https://api.themoviedb.org/3/tv/"
+        private const val API_KEY_PARAM = "api_key"
+        private const val LANGUAGE_PARAM = "language"
+        private const val LANGUAGE = "en-US"
     }
 
     val movieData = MutableLiveData<Movie>()
@@ -23,7 +29,13 @@ class DetailMovieTVShowViewModel : ViewModel() {
 
     internal fun setMovie(movieID: String, context: Context) {
         val client = AsyncHttpClient()
-        val url = "https://api.themoviedb.org/3/movie/$movieID?api_key=$API_KEY&language=en-US"
+        val builtUri =
+            Uri.parse(BASE_URL_MOVIE).buildUpon()
+                .appendPath(movieID)
+                .appendQueryParameter(API_KEY_PARAM, BuildConfig.MY_API_KEY)
+                .appendQueryParameter(LANGUAGE_PARAM, LANGUAGE)
+                .build()
+        val url = builtUri.toString()
 
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -32,7 +44,11 @@ class DetailMovieTVShowViewModel : ViewModel() {
                 responseBody: ByteArray?
             ) {
                 try {
-                    val result = responseBody?.let { String(it) }
+                    var tResult = ""
+                    if (responseBody != null) {
+                        tResult = String(responseBody)
+                    }
+                    val result = tResult
                     val responseObject = JSONObject(result)
 
                     val movie =
@@ -77,7 +93,13 @@ class DetailMovieTVShowViewModel : ViewModel() {
 
     internal fun setTVShow(TVShowID: String, context: Context) {
         val client = AsyncHttpClient()
-        val url = "https://api.themoviedb.org/3/tv/$TVShowID?api_key=$API_KEY&language=en-US"
+        val builtUri =
+            Uri.parse(BASE_URL_TV_SHOW).buildUpon()
+                .appendPath(TVShowID)
+                .appendQueryParameter(API_KEY_PARAM, BuildConfig.MY_API_KEY)
+                .appendQueryParameter(LANGUAGE_PARAM, LANGUAGE)
+                .build()
+        val url = builtUri.toString()
 
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -86,7 +108,11 @@ class DetailMovieTVShowViewModel : ViewModel() {
                 responseBody: ByteArray?
             ) {
                 try {
-                    val result = responseBody?.let { String(it) }
+                    var tResult = ""
+                    if (responseBody != null) {
+                        tResult = String(responseBody)
+                    }
+                    val result = tResult
                     val responseObject = JSONObject(result)
 
                     val tvShow = TVShow()

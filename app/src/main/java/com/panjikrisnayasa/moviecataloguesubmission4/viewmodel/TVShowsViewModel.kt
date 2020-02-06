@@ -1,12 +1,14 @@
 package com.panjikrisnayasa.moviecataloguesubmission4.viewmodel
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.panjikrisnayasa.moviecataloguesubmission4.BuildConfig
 import com.panjikrisnayasa.moviecataloguesubmission4.R
 import com.panjikrisnayasa.moviecataloguesubmission4.model.TVShow
 import cz.msebera.android.httpclient.Header
@@ -14,7 +16,10 @@ import org.json.JSONObject
 
 class TVShowsViewModel : ViewModel() {
     companion object {
-        private const val API_KEY = "cf6b5328dcc68b107a713f503eb6e1d1"
+        private const val BASE_URL_TV_SHOW = "https://api.themoviedb.org/3/discover/tv"
+        private const val API_KEY_PARAM = "api_key"
+        private const val LANGUAGE_PARAM = "language"
+        private const val LANGUAGE = "en-US"
     }
 
     val tvShowsData = MutableLiveData<ArrayList<TVShow>>()
@@ -22,16 +27,25 @@ class TVShowsViewModel : ViewModel() {
     internal fun setTVShows(context: Context) {
         val client = AsyncHttpClient()
         val listItems = ArrayList<TVShow>()
-        val tvShowsUrl = "https://api.themoviedb.org/3/discover/tv?api_key=$API_KEY&language=en-US"
+        val builtUri =
+            Uri.parse(BASE_URL_TV_SHOW).buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, BuildConfig.MY_API_KEY)
+                .appendQueryParameter(LANGUAGE_PARAM, LANGUAGE)
+                .build()
+        val url = builtUri.toString()
 
-        client.get(tvShowsUrl, object : AsyncHttpResponseHandler() {
+        client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
                 try {
-                    val resultT = responseBody?.let { String(it) }
+                    var tResult = ""
+                    if (responseBody != null) {
+                        tResult = String(responseBody)
+                    }
+                    val resultT = tResult
                     val responseObjectT = JSONObject(resultT)
                     val listT = responseObjectT.getJSONArray("results")
 

@@ -15,6 +15,10 @@ import kotlinx.android.synthetic.main.item_recycler_fragment_tvshows.view.*
 class FavoredTVShowsAdapter(private val fragment: FavoriteTVShowsFragment) :
     RecyclerView.Adapter<FavoredTVShowsAdapter.FavoredTVShowsHolder>() {
 
+    companion object {
+        private const val BASE_URL = "https://image.tmdb.org/t/p/w185/"
+    }
+
     var listTVShows = ArrayList<TVShow>()
         set(listTVShows) {
             if (listTVShows.size > 0) {
@@ -59,14 +63,16 @@ class FavoredTVShowsAdapter(private val fragment: FavoriteTVShowsFragment) :
         fun bind(tvShow: TVShow) {
             with(itemView) {
                 image_item_recycler_fragment_tvshows_poster.clipToOutline = true
-                val posterPath = "https://image.tmdb.org/t/p/w185/" + tvShow.posterPath
+                val posterPath = BASE_URL + tvShow.posterPath
                 Glide.with(context).load(posterPath)
                     .into(image_item_recycler_fragment_tvshows_poster)
                 text_item_recycler_fragment_tvshows_name.text = tvShow.name
-                val voteAverage = (tvShow.voteAverage?.div(2))?.toFloat()
-                if (voteAverage != null) {
-                    rating_item_recycler_fragment_tvshows.rating = voteAverage
+                val tVoteAverage = tvShow.voteAverage
+                var voteAverage = 0f
+                if (tVoteAverage != null) {
+                    voteAverage = (tVoteAverage / 2).toFloat()
                 }
+                rating_item_recycler_fragment_tvshows.rating = voteAverage
                 text_item_recycler_fragment_tvshows_vote_average.text =
                     tvShow.voteAverage.toString()
                 text_item_recycler_fragment_tvshows_popularity.text = tvShow.popularity.toString()

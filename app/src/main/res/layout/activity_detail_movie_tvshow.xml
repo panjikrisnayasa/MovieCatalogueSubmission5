@@ -40,12 +40,13 @@
             <TextView
                 android:id="@+id/text_detail_movies_tvshows_title"
                 style="@style/TextStyle.Body"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:textAllCaps="true"
                 app:layout_constraintStart_toEndOf="@id/image_detail_movies_tvshows_poster"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="ANGEL HAS FALLEN" />
 
             <TextView
@@ -181,13 +182,14 @@
 
             <TextView
                 android:id="@+id/text_detail_movies_tvshows_overview"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:lineSpacingMultiplier="1.25"
                 app:layout_constraintBottom_toTopOf="@id/button_detail_movies_tvshows"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_detail_movies_tvshows_overview_label"
                 tools:text="Secret Service Agent Mike Banning is framed for the attempted assassination of the President and must evade his own agency and the FBI as he tries to uncover the real threat." />
 

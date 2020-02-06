@@ -3,7 +3,7 @@ package com.panjikrisnayasa.moviecataloguesubmission4.db
 import android.provider.BaseColumns
 
 internal class DatabaseFavoredMoviesContract {
-    internal class FavoredMoviesColumns: BaseColumns {
+    internal class FavoredMoviesColumns : BaseColumns {
         companion object {
             const val TABLE_NAME = "favored_movies"
             const val _ID = "_id"

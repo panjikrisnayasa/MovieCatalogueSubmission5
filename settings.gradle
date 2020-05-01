@@ -1,2 +1,2 @@
-include ':app'
-rootProject.name='MovieCatalogueSubmission4'
+include ':app', ':movieconsumerapp'
+rootProject.name='MovieCatalogueSubmission5'

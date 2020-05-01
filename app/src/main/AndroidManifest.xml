@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.panjikrisnayasa.moviecataloguesubmission4">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.panjikrisnayasa.moviecataloguesubmission5">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <permission
+        android:name="com.panjikrisnayasa.moviecataloguesubmission5.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.panjikrisnayasa.moviecataloguesubmission5.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -10,9 +21,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.DetailFavoredMovieTVShowActivity" />
-        <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.DetailMovieTVShowActivity" />
-        <activity android:name="com.panjikrisnayasa.moviecataloguesubmission4.view.MainActivity">
+
+        <receiver
+            android:name=".notification.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
+
+        <activity android:name=".view.NotificationActivity" />
+
+        <provider
+            android:name=".provider.MoviesProvider"
+            android:authorities="com.panjikrisnayasa.moviecataloguesubmission5.movies"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.panjikrisnayasa.moviecataloguesubmission5.READ_DATABASE"
+            android:writePermission="com.panjikrisnayasa.moviecataloguesubmission5.WRITE_DATABASE" />
+        <provider
+            android:name=".provider.TVShowsProvider"
+            android:authorities="com.panjikrisnayasa.moviecataloguesubmission5.tvshows"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.panjikrisnayasa.moviecataloguesubmission5.READ_DATABASE"
+            android:writePermission="com.panjikrisnayasa.moviecataloguesubmission5.WRITE_DATABASE" />
+
+        <activity android:name=".view.DetailFavoredMovieTVShowActivity" />
+        <activity android:name=".view.DetailMovieTVShowActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />

@@ -1,15 +1,20 @@
 <resources>
 
-    <string name="app_name">Katalog Film 4</string>
+    <string name="app_name">Katalog Film 5</string>
 
     <!--    Main-->
     <string name="menu_main_change_language">Ganti Bahasa</string>
+    <string name="menu_main_notification">Notifikasi</string>
 
     <string name="movie_rating_adult">Dewasa</string>
     <string name="movie_rating_all_ages">Semua Umur</string>
     <string name="failed_to_retrieve_data">Gagal mengambil data, tolong periksa koneksi anda</string>
     <string name="no_favored_movies">Belum ada film favoritmu</string>
     <string name="no_favored_tvshow">Belum ada tv show favoritmu</string>
+    <string name="fragment_tvshows_search">Cari acara TV disini</string>
+    <string name="fragment_movies_search">Cari film disini</string>
+    <string name="notification_message_daily">Kami merindukanmu!</string>
+    <string name="notification_message_release">%s telah dirilis hari ini!</string>
 
     <!--    Item Recycler Fragment Movies-->
     <string name="item_recycler_fragment_movies_text_genre">Aliran</string>
@@ -47,5 +52,13 @@
     <string name="toast_tvshow_unfavored">Acara TV ini DIHAPUS dari daftar favorit Anda</string>
     <string name="toast_movie_favored">Film ini DITAMBAHKAN ke daftar favorit Anda</string>
     <string name="toast_tvshow_favored">Acara TV ini DITAMBAHKAN ke daftar favorit Anda</string>
+
+    <!--    Preference-->
+    <string name="preference_switch_preference_release_reminder">Pengingat Rilis</string>
+    <string name="preference_switch_preference_daily_reminder">Pengingat Harian</string>
+    <string name="preference_switch_preference_daily_reminder_summary">Pengingat untuk melihat aplikasi</string>
+    <string name="preference_switch_preference_release_reminder_summary">Pengingat untuk melihat film yang rilis hari ini</string>
+    <string name="preference_key_release_reminder">release_reminder</string>
+    <string name="preference_key_daily_reminder">daily_reminder</string>
 
 </resources>

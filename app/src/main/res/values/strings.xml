@@ -1,15 +1,20 @@
 <resources>
 
-    <string name="app_name">Movie Catalogue 4</string>
+    <string name="app_name">Movie Catalogue 5</string>
 
     <!--    Main-->
     <string name="menu_main_change_language">Change Language</string>
+    <string name="menu_main_notification">Notification</string>
 
     <string name="movie_rating_adult">Adult</string>
     <string name="movie_rating_all_ages">All Ages</string>
     <string name="failed_to_retrieve_data">Failed to retrieve data, please check your connection</string>
     <string name="no_favored_movies">There are no movies you favored yet</string>
     <string name="no_favored_tvshow">There are no tv shows you favored yet</string>
+    <string name="fragment_tvshows_search">Search TV show here</string>
+    <string name="fragment_movies_search">Search movie here</string>
+    <string name="notification_message_daily">We\'re missing you!</string>
+    <string name="notification_message_release">%s has been released today!</string>
 
     <!--    Item Recycler Fragment Movies-->
     <string name="item_recycler_fragment_movies_text_genre">Genre</string>
@@ -47,5 +52,13 @@
     <string name="toast_tvshow_unfavored">This TV show DELETED from your favored list</string>
     <string name="toast_movie_favored">This movie ADDED to your favored list</string>
     <string name="toast_tvshow_favored">This TV show ADDED to your favored list</string>
+
+    <!--    Preference-->
+    <string name="preference_switch_preference_release_reminder">Release Reminder</string>
+    <string name="preference_switch_preference_daily_reminder">Daily Reminder</string>
+    <string name="preference_switch_preference_daily_reminder_summary">Reminder to check this app</string>
+    <string name="preference_switch_preference_release_reminder_summary">Reminder showing movies that released today</string>
+    <string name="preference_key_release_reminder">release_reminder</string>
+    <string name="preference_key_daily_reminder">daily_reminder</string>
 
 </resources>

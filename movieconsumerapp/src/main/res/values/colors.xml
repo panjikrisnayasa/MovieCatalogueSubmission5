@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#f57f17</color>
+
+    <color name="colorRipple">#6d6d6d</color>
+    <color name="colorRatingBar">#FDBB2D</color>
+    <color name="colorUnpressedItem">#A7A7A7</color>
+    <color name="colorWidget">#212121</color>
+</resources>

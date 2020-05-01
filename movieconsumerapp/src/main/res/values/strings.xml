@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Movie Consumer App</string>
+
+    <!--    Main-->
+    <string name="menu_main_change_language">Change Language</string>
+
+    <string name="movie_rating_adult">Adult</string>
+    <string name="movie_rating_all_ages">All Ages</string>
+    <string name="failed_to_retrieve_data">Failed to retrieve data, please check your connection</string>
+    <string name="no_favored_movies">There are no movies you favored yet</string>
+    <string name="no_favored_tvshow">There are no tv shows you favored yet</string>
+    <string name="fragment_tvshows_search">Search TV show here</string>
+    <string name="fragment_movies_search">Search movie here</string>
+
+    <!--    Item Recycler Fragment Movies-->
+    <string name="item_recycler_fragment_movies_text_genre">Genre</string>
+    <string name="item_recycler_fragment_movies_text_popularity">Popularity</string>
+    <string name="item_recycler_fragment_movies_text_release_date">Release Date</string>
+    <string name="item_recycler_fragment_movies_text_rating">Rating</string>
+    <string name="item_recycler_fragment_movies_button_see_more">See More</string>
+    <string name="item_recycler_image_poster">Poster</string>
+
+    <!--    Item Recycler Fragment TV Shows-->
+    <string name="item_recycler_fragment_tvshows_text_genre">Genre</string>
+    <string name="item_recycler_fragment_tvshows_text_language">Language</string>
+    <string name="item_recycler_fragment_tvshows_text_first_air_date">First Air Date</string>
+    <string name="item_recycler_fragment_tvshows_button_see_more">See More</string>
+    <string name="item_recycler_fragment_tvshows_text_popularity">Popularity</string>
+
+    <!--    Detail Movies TV Shows-->
+    <string name="detail_movies_tvshows_button_buy_ticket">Buy Ticket</string>
+    <string name="detail_movies_tvshows_button_watch_now">Watch Now</string>
+    <string name="detail_movies_tvshows_text_overview">Overview</string>
+    <string name="detail_movies_tvshows_image_poster">Poster</string>
+    <string name="detail_movies_tvshows_toast_buy_ticket">You ordered \"%s\" ticket</string>
+    <string name="detail_movies_tvshows_toast_watch_now">Enjoy watching</string>
+    <string name="menu_detail_movie_tvshow_favorite">Favorite</string>
+
+    <!--    View Pager Adapter-->
+    <string name="view_pager_adapter_favorite_movies">Movies</string>
+    <string name="view_pager_adapter_favorite_tv_shows">TV Shows</string>
+    <string name="menu_main_bottom_navigation_movies">Movies</string>
+    <string name="menu_main_bottom_navigation_tv_shows">TV Shows</string>
+    <string name="menu_main_bottom_navigation_favorite">Favorite</string>
+
+    <!--    Toast-->
+    <string name="toast_movie_unfavored">This movie DELETED from your favored list</string>
+    <string name="toast_tvshow_unfavored">This TV show DELETED from your favored list</string>
+    <string name="toast_movie_favored">This movie ADDED to your favored list</string>
+    <string name="toast_tvshow_favored">This TV show ADDED to your favored list</string>
+
+    <!--    Widget-->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="favored_movies_widget_text_title">Favored Movie</string>
+    <string name="favored_movies_widget_text_no_data">Favored Movie: No Data</string>
+    <string name="favored_tvshows_widget_text_title">Favored TV Show</string>
+    <string name="favored_tvshows_widget_text_no_data">Favored TV Show: No Data</string>
+
+</resources>

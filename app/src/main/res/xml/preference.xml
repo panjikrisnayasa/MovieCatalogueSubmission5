@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/preference_key_release_reminder"
+        android:summary="@string/preference_switch_preference_release_reminder_summary"
+        android:title="@string/preference_switch_preference_release_reminder" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/preference_key_daily_reminder"
+        android:summary="@string/preference_switch_preference_daily_reminder_summary"
+        android:title="@string/preference_switch_preference_daily_reminder" />
+
+</androidx.preference.PreferenceScreen>

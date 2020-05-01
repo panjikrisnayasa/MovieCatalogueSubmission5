@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+
+    <ImageView
+        android:id="@+id/image_item_recycler_fragment_movies_poster"
+        android:layout_width="84dp"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_image_rounded"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/item_recycler_image_poster" />
+
+    <TextView
+        android:id="@+id/text_item_recycler_fragment_movies_title"
+        style="@style/TextStyle.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_movies_poster"
+        android:textAllCaps="true"
+        tools:text="AD ASTRA" />
+
+    <LinearLayout
+        android:id="@+id/linear_item_recycler_fragment_movies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_item_recycler_fragment_movies_title"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_movies_poster"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RatingBar
+            android:id="@+id/rating_item_recycler_fragment_movies"
+            style="?ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/colorRatingBar"
+            tools:rating="3" />
+
+        <TextView
+            android:id="@+id/text_item_recycler_fragment_movies_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/colorRatingBar"
+            tools:text="6.0" />
+
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/table_item_recycler_fragment_movies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_item_recycler_fragment_movies"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/image_item_recycler_fragment_movies_poster">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_movies_text_popularity" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_movies_popularity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="1000" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_movies_text_release_date" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_movies_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="2019-09-17" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_recycler_fragment_movies_text_rating" />
+
+            <TextView
+                android:id="@+id/text_item_recycler_fragment_movies_rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/colorAccent"
+                tools:text="All Ages" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/image_item_recycler_fragment_movies_poster"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark" />
+
+</RelativeLayout>

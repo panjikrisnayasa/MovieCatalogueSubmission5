@@ -1,4 +1,4 @@
-An app that created for "Menjadi Android Developer Expert" online course from Dicoding Indonesia
+An app that created for the last submission of "Menjadi Android Developer Expert" online course from Dicoding Indonesia
 
 ![Screenshot_20201122-213540](https://user-images.githubusercontent.com/48062932/99906491-72959900-2d12-11eb-8a7e-ee18877c562f.jpg)
 
